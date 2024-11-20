@@ -10,6 +10,13 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        darkblue: "#1D3461",
+        lightblue: "#89CFF0",
+        hoverlightblue: "#6EC6FF",
+        periwinkle: "#8F99FB",
+        hoverperiwinkle: "#5A6DFF",
+        pink: "#FFD1DC",
+        white: "#F8F7FF",
       },
     },
   },
