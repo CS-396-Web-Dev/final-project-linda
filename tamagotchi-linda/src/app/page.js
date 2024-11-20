@@ -1,3 +1,5 @@
+import React from "react";
+import StatsPanel from "../components/StatsPanel"; // Adjust the path as needed
 import Image from "next/image";
 import PetIcon from "@/Components/PetIcon";
 
@@ -16,6 +18,11 @@ export default function Home() {
         </button>
       </div>
       {/* <PetIcon /> */}
+
+      {/* Test panel component */}
+      {/* <div className="w-full max-w-md">
+        <StatsPanel />
+      </div> */}
     </div>
   );
 }
