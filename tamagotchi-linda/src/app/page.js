@@ -1,3 +1,5 @@
+import React from "react";
+import StatsPanel from "../components/StatsPanel"; // Adjust the path as needed
 import Image from "next/image";
 
 export default function Home() {
@@ -15,6 +17,12 @@ export default function Home() {
           Login
         </button>
       </div>
+
+      {/* Test panel component */}
+      {/* <div className="w-full max-w-md">
+        <StatsPanel />
+      </div> */}
+    
     </div>
   );
 }
