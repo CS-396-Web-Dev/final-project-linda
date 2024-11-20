@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PetIcon from "@/Components/PetIcon";
 
 export default function Home() {
   return (
@@ -6,7 +7,6 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center mb-6 text-black">
         Welcome to Our Site
       </h1>
-
       <div className="space-x-4">
         <button className="px-6 py-2 bg-periwinkle text-white rounded hover:bg-hoverperiwinkle">
           Create User
@@ -15,6 +15,7 @@ export default function Home() {
           Login
         </button>
       </div>
+      {/* <PetIcon /> */}
     </div>
   );
 }
