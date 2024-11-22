@@ -2,6 +2,10 @@
 import React from "react";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import StatsPanel from "../components/StatsPanel"; // Adjust the path as needed
+import Image from "next/image";
+import PetIcon from "@/Components/PetIcon";
+import PetCard from "@/Components/PetCard";
 
 export default function Home() {
   const router = useRouter();
@@ -33,6 +37,15 @@ export default function Home() {
           Login
         </button>
       </div>
+
+      {/* <PetIcon /> */}
+
+      {/* Test panel component */}
+      {/* <div className="w-full max-w-md">
+        <StatsPanel />
+      </div> */}
+
+      {/* <PetCard/> */}
     </div>
   );
 600}
