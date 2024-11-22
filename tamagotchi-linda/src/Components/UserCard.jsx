@@ -6,7 +6,8 @@ const UserCard = ({ user, onDelete }) => {
   const router = useRouter();
 
   const handleCardClick = () => {
-    router.push('/');
+    console.log("user.id", user.id)
+    router.push(`/user/${user.id}`);
   };
 
   const handleDelete = (e) => {
