@@ -1,19 +1,20 @@
+"use client"
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const UserCard = ({ user }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleCardClick = () => {
-    navigate(`/user/${user.id}`); 
+    router.push('/');
   };
 
   return (
     <div
-      className="border rounded p-4 shadow cursor-pointer"
+      className="bg-white border rounded-lg p-4 shadow cursor-pointer hover:shadow-md transition-shadow"
       onClick={handleCardClick}
     >
-      <h2 className="text-xl font-bold">{user.name}</h2>
+      <h2 className="text-xl font-bold text-center">{user.name}</h2>
     </div>
   );
 };
