@@ -61,7 +61,7 @@ export default function UserPage({ params: paramsPromise }) {
     <div className="min-h-screen bg-gray-100">
       <div className="p-4">
         <button 
-          className="h-8 w-8 text-gray-600 hover:text-gray-800 cursor-pointer" 
+          className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded" 
           onClick={() => router.push('/')}
         > Home </button>
       </div>
@@ -72,7 +72,7 @@ export default function UserPage({ params: paramsPromise }) {
         {!isAddingPet ? (
           <button
             onClick={() => setIsAddingPet(true)}
-            className="mb-8 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            className="mb-8 bg-darkblue text-white px-4 py-2 rounded-md hover:scale-110"
           >
             Add New Pet
           </button>
@@ -94,14 +94,14 @@ export default function UserPage({ params: paramsPromise }) {
             <div className="space-x-4">
               <button
                 type="submit"
-                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                className="bg-lightblue text-white px-4 py-2 rounded-md hover:scale-110"
               >
                 Save Pet
               </button>
               <button
                 type="button"
                 onClick={() => setIsAddingPet(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:scale-110"
               >
                 Cancel
               </button>

@@ -5,12 +5,12 @@ const PetCard = ({ pet, onDelete }) => {
   return (
     <div className="bg-white rounded-lg shadow p-6 relative">
       <h3 className="text-xl font-semibold mb-2">{pet.name}</h3>
-      {/* <button
+      <button
         onClick={() => onDelete(pet.id)}
-        className="absolute top-4 right-4 px-3 py-1 bg-red text-white rounded hover:scale-110 text-sm"
+        className="absolute top-4 right-4 px-3 py-1 bg-periwinkle text-white rounded hover:scale-110"
       >
         Delete
-      </button> */}
+      </button>
     </div>
   );
 };
