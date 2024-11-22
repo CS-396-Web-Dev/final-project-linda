@@ -14,6 +14,7 @@ export default function CreateAccount() {
       name: username
     };
     users.push(newUser);
+    console.log("new users: ", newUser);
     localStorage.setItem('users', JSON.stringify(users));
     router.push('/');
   };

@@ -36,6 +36,7 @@ export default function Login() {
       </div>
     );
   }
+  console.log("users in login", users)
 
   return (
     <div className="min-h-screen bg-gray-100">
