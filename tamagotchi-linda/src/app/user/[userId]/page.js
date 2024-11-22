@@ -1,55 +1,58 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import PetCard from '@/components/PetCard';
+"use client";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import PetCard from "@/components/PetCard";
 
 export default function UserPage({ params: paramsPromise }) {
   const router = useRouter();
-  console.log("params", paramsPromise);
-  const params = React.use(paramsPromise);
-  const userId = params.userId;
-
-  
+  const [params, setParams] = useState(null);
   const [user, setUser] = useState(null);
   const [pets, setPets] = useState([]);
   const [newPetName, setNewPetName] = useState('');
   const [isAddingPet, setIsAddingPet] = useState(false);
 
+  // Unwrap params
   useEffect(() => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    //console.log("users", users)
-    //console.log("u id to string", u.id.toString());
-    //console.log("userid", userId)
-    const currentUser = users.find(u => u.id.toString() === userId);
-    setUser(currentUser);
-    //console.log("currentUser", currentUser)
+    paramsPromise.then((resolvedParams) => {
+      setParams(resolvedParams);
+    });
+  }, [paramsPromise]);
 
-    const userPets = JSON.parse(localStorage.getItem(`pets_${userId}`) || '[]');
+  useEffect(() => {
+    if (!params) return;
+
+    const { userId } = params;
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const currentUser = users.find((u) => u.id.toString() === userId);
+    setUser(currentUser);
+
+    const userPets = JSON.parse(localStorage.getItem(`pets_${userId}`) || "[]");
     setPets(userPets);
-  }, [userId]);
+  }, [params]);
 
   const handleAddPet = (e) => {
     e.preventDefault();
     const newPet = {
       id: Date.now(),
       name: newPetName,
-      userId: userId
+      userId: params?.userId,
     };
 
     const updatedPets = [...pets, newPet];
-    localStorage.setItem(`pets_${userId}`, JSON.stringify(updatedPets));
+    localStorage.setItem(`pets_${params.userId}`, JSON.stringify(updatedPets));
     setPets(updatedPets);
     setNewPetName('');
     setIsAddingPet(false);
   };
 
   const handleDeletePet = (petId) => {
-    const updatedPets = pets.filter(pet => pet.id !== petId);
-    localStorage.setItem(`pets_${userId}`, JSON.stringify(updatedPets));
+    const updatedPets = pets.filter((pet) => pet.id !== petId);
+    localStorage.setItem(`pets_${params.userId}`, JSON.stringify(updatedPets));
     setPets(updatedPets);
   };
 
-  if (!user) {
+  if (!params || !user) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-xl">Loading...</div>
@@ -60,15 +63,17 @@ export default function UserPage({ params: paramsPromise }) {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="p-4">
-        <button 
-          className="h-8 w-8 text-gray-600 hover:text-gray-800 cursor-pointer" 
-          onClick={() => router.push('/')}
-        > Home </button>
+        <button
+          className="h-8 w-24 text-gray-600 hover:text-gray-800 bg-gray-200 rounded"
+          onClick={() => router.push("/")}
+        >
+          Home
+        </button>
       </div>
-      
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8 text-center">{user.name}'s Pets</h1>
-        
+
         {!isAddingPet ? (
           <button
             onClick={() => setIsAddingPet(true)}
@@ -111,14 +116,10 @@ export default function UserPage({ params: paramsPromise }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pets.map((pet) => (
-            <PetCard
-              key={pet.id}
-              pet={pet}
-              onDelete={handleDeletePet}
-            />
+            <PetCard key={pet.id} pet={pet} onDelete={handleDeletePet} />
           ))}
         </div>
-        
+
         {pets.length === 0 && (
           <div className="text-center text-gray-500 mt-8">
             No pets added yet. Click "Add New Pet" to get started!
