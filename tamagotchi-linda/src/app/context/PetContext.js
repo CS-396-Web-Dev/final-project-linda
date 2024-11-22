@@ -5,6 +5,28 @@ const PetContext = createContext();
 
 export const usePetContext = () => useContext(PetContext);
 
+export const PetProvider = ({ children }) => {
+  const [userFiles, setUserFiles] = useState({}); // create local state containing all the users and their pets (each key for a different recipe)
+
+  useEffect(() => {
+    if (localStorage.getItem("users")) {
+      const storedUsers = JSON.parse(localStorage.getItem("users")) || {};
+      setUserFiles(storedUsers);
+    }
+  }, []);
+
+  const createPet = (petName, userName, img) => {
+    const temp = { ...userFiles };
+    temp[userName][petName] = {
+      img: img,
+      hunger: 0,
+      happiness: 0,
+      energy: 0,
+      growth_stage: 0,
+    };
+    setUserFiles(temp);
+    localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
+  };
 export const PetProvider = ({children}) => {
     const [userFiles, setUserFiles] = useState({});   // create local state containing all the users and their pets (each key for a different recipe)
     const [currentUser, setCurrentUser] = useState(0);
@@ -26,6 +48,12 @@ export const PetProvider = ({children}) => {
         localStorage.setItem('users', JSON.stringify(userFiles)); // save updated info to local storage
     }
 
+  const createUser = (userName) => {
+    const temp = { ...userFiles };
+    temp[userName] = {};
+    setUserFiles(temp);
+    localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
+  };
     const createUser = (username) =>{
       const newId = Object.keys(userFiles).length+1;
       setIdToName((prev) => {
@@ -47,6 +75,12 @@ export const PetProvider = ({children}) => {
         localStorage.setItem('users', JSON.stringify(userFiles)); // save updated info to local storage
     }
 
+  const updatePet = (petName, userName, attribute, newValue) => {
+    const temp = { ...userFiles };
+    temp[userName][petName][attribute] = newValue;
+    setUserFiles(temp);
+    localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
+  };
     const deleteUser = (username) => {
       const userid = Object.keys(userFiles).find(key => idToName[key] === username);
 
@@ -62,6 +96,14 @@ export const PetProvider = ({children}) => {
       localStorage.setItem('ids', JSON.stringify(idToName));
     }
 
+  return (
+    <PetContext.Provider
+      value={{ userFiles, createPet, createUser, updatePet }}
+    >
+      {children}
+    </PetContext.Provider>
+  );
+};
     return (
         <PetContext.Provider value={{userFiles, currentUser, idToName, setCurrentUser,createPet, createUser, updatePet, deleteUser}}>
           {children}
