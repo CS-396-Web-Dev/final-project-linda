@@ -1,22 +1,18 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {usePetContext} from '../context/PetContext'
 
 export default function CreateAccount() {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(''); 
+  const {currentUser, setCurrentUser, createUser} = usePetContext();
+
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const newUser = {
-      id: users.length + 1,
-      name: username
-    };
-    users.push(newUser);
-    console.log("new users: ", newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    router.push('/');
+    createUser(username);
+    setUsername('');
   };
 
   return (
