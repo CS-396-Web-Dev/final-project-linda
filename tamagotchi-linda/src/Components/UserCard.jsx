@@ -1,15 +1,15 @@
-"use client"
+"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import {usePetContext} from '../app/context/PetContext' 
+import { usePetContext } from "../app/context/PetContext";
 
 const UserCard = ({ user, onClick, onDelete }) => {
   const router = useRouter();
-  const {idToName} = usePetContext();
+  const { idToName } = usePetContext();
   const username = idToName[user];
 
   const handleDelete = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     onDelete(username);
   };
 
@@ -27,7 +27,9 @@ const UserCard = ({ user, onClick, onDelete }) => {
         onClick={handleDelete}
         className="absolute right-2 top-1/2 -translate-y-1/2 bg-periwinkle hover:bg-hoverperiwinkle text-white rounded p-1"
         aria-label="Delete user"
-      > delete
+      >
+        {" "}
+        delete
       </button>
     </div>
   );
