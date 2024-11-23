@@ -2,22 +2,23 @@
 import React, { useState, useEffect } from 'react';
 import UserCard from '@/components/UserCard';
 import { useRouter } from 'next/navigation';
+import {usePetContext} from '../context/PetContext'
 
 export default function Login() {
   const router = useRouter();
-  const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const {userFiles, setCurrentUser, deleteUser, idToName} = usePetContext();
+  const users = [];
+
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
-    setUsers(storedUsers);
+    const users = Object.keys(userFiles);
+    // console.log("users", users);
     setIsLoading(false);
   }, []);
 
   const handleDeleteUser = (userId) => {
-    const updatedUsers = users.filter(user => user.id !== userId);
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
-    setUsers(updatedUsers);
+    deleteUser(userId)
   };
 
   if (isLoading) {
@@ -50,13 +51,13 @@ export default function Login() {
       <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
         <h1 className="text-2xl font-bold mb-6">Select User</h1>
         <div className="space-y-4 w-96">
-          {users.length === 0 ? (
+          {Object.keys(userFiles).length === 0 ? (
             <div className="text-center text-gray-500">No users found</div>
           ) : (
-            users.map((user) => (
+            Object.keys(userFiles).map((user,index) => (
               <UserCard 
-                key={user.id} 
-                user={user} 
+                key={user} 
+                user={idToName[user]} 
                 onDelete={handleDeleteUser}
               />
             ))
