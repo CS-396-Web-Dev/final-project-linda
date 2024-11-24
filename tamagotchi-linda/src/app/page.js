@@ -1,13 +1,12 @@
-
-"use client"
+"use client";
 import React from "react";
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import StatsPanel from "../components/StatsPanel"; // Adjust the path as needed
 import Image from "next/image";
 import PetIcon from "@/Components/PetIcon";
 import PetCard from "@/Components/PetCard";
-import { usePetContext } from './context/PetContext';
+import { usePetContext } from "./context/PetContext";
 
 export default function Home() {
   const router = useRouter();
@@ -21,15 +20,13 @@ export default function Home() {
     router.push("/createAccount");
   };
 
-  
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-4xl font-bold text-center mb-6 text-black">
         Welcome to Our Site
       </h1>
       <div className="space-x-4">
-
-        <button 
+        <button
           className="px-6 py-2 bg-periwinkle text-white rounded hover:scale-110"
           onClick={handleCreateAccountClick}
         >
@@ -53,5 +50,5 @@ export default function Home() {
       {/* <PetCard/> */}
     </div>
   );
-
-600}
+  600;
+}

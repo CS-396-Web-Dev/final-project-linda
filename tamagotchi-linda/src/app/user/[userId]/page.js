@@ -6,8 +6,8 @@ import { usePetContext } from "../../context/PetContext";
 
 export default function UserPage({ params: paramsPromise }) {
   const router = useRouter();
-  const { userFiles, idToName, createPet, updatePet} = usePetContext();
-  
+  const { userFiles, idToName, createPet, updatePet } = usePetContext();
+
   const [params, setParams] = useState(null);
   const [user, setUser] = useState(null);
   const [pets, setPets] = useState([]);
@@ -16,7 +16,6 @@ export default function UserPage({ params: paramsPromise }) {
   const [newPetIcon, setNewPetIcon] = useState("");
 
   // Unwrap params
-
   useEffect(() => {
     paramsPromise.then((resolvedParams) => {
       setParams(resolvedParams);
@@ -26,28 +25,31 @@ export default function UserPage({ params: paramsPromise }) {
   useEffect(() => {
     if (!params) return;
     const userId = params.userId;
-    const currentUser = idToName[userId]; 
+    const currentUser = idToName[userId];
     setUser(currentUser);
 
-    const userPets = userFiles[userId] || {}; 
-    setPets(Object.keys(userPets).map(petName => ({ id: petName, ...userPets[petName] }))); 
+    const userPets = userFiles[userId] || {};
+    setPets(
+      Object.keys(userPets).map((petName) => ({
+        id: petName,
+        ...userPets[petName],
+      }))
+    );
   }, [params, userFiles, idToName]);
 
   const handleAddPet = (e) => {
     e.preventDefault();
     createPet(newPetName, params.userId, newPetIcon);
     setNewPetName("");
-
     setIsAddingPet(false);
     setNewPetIcon("");
   };
 
   const handleDeletePet = (petId) => {
-
-    const petName = petId; 
-    updatePet(petName, params.userId, "hunger", 0); 
-    delete userFiles[params.userId][petName]; 
-    setPets(pets.filter(pet => pet.id !== petId));
+    const petName = petId;
+    updatePet(petName, params.userId, "hunger", 0);
+    delete userFiles[params.userId][petName];
+    setPets(pets.filter((pet) => pet.id !== petId));
   };
 
   const handlePetCardClick = (petId) => {
@@ -148,12 +150,11 @@ export default function UserPage({ params: paramsPromise }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pets.map((pet) => (
-
-            <PetCard 
-                key={pet.id}
-                pet={pet.id} 
-                onDelete={handleDeletePet} 
-                onClick={handlePetCardClick} 
+            <PetCard
+              key={pet.id}
+              pet={pet.id}
+              onDelete={handleDeletePet}
+              onClick={handlePetCardClick}
             />
           ))}
         </div>
