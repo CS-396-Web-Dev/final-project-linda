@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PetCard from "@/components/PetCard";
+import { usePetContext } from "../../context/PetContext";
 
 export default function UserPage({ params: paramsPromise }) {
   const router = useRouter();
+  const { userFiles, idToName, createPet, updatePet} = usePetContext();
+  
   const [params, setParams] = useState(null);
   const [user, setUser] = useState(null);
   const [pets, setPets] = useState([]);
@@ -20,36 +23,30 @@ export default function UserPage({ params: paramsPromise }) {
 
   useEffect(() => {
     if (!params) return;
-
-    const { userId } = params;
-
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const currentUser = users.find((u) => u.id.toString() === userId);
+    const userId = params.userId;
+    const currentUser = idToName[userId]; 
     setUser(currentUser);
 
-    const userPets = JSON.parse(localStorage.getItem(`pets_${userId}`) || "[]");
-    setPets(userPets);
-  }, [params]);
+    const userPets = userFiles[userId] || {}; 
+    setPets(Object.keys(userPets).map(petName => ({ id: petName, ...userPets[petName] }))); 
+  }, [params, userFiles, idToName]);
 
   const handleAddPet = (e) => {
     e.preventDefault();
-    const newPet = {
-      id: Date.now(),
-      name: newPetName,
-      userId: params?.userId,
-    };
-
-    const updatedPets = [...pets, newPet];
-    localStorage.setItem(`pets_${params.userId}`, JSON.stringify(updatedPets));
-    setPets(updatedPets);
+    createPet(newPetName, params.userId, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg?20140729055059"); // Add a image?
     setNewPetName('');
     setIsAddingPet(false);
   };
 
   const handleDeletePet = (petId) => {
-    const updatedPets = pets.filter((pet) => pet.id !== petId);
-    localStorage.setItem(`pets_${params.userId}`, JSON.stringify(updatedPets));
-    setPets(updatedPets);
+    const petName = petId; 
+    updatePet(petName, params.userId, "hunger", 0); 
+    delete userFiles[params.userId][petName]; 
+    setPets(pets.filter(pet => pet.id !== petId));
+  };
+
+  const handlePetCardClick = (petId) => {
+    router.push(`/user/${params.userId}/pet/${petId}`);
   };
 
   if (!params || !user) {
@@ -72,7 +69,7 @@ export default function UserPage({ params: paramsPromise }) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">{user.name}'s Pets</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">{user}'s Pets</h1>
 
         {!isAddingPet ? (
           <button
@@ -116,7 +113,12 @@ export default function UserPage({ params: paramsPromise }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pets.map((pet) => (
-            <PetCard key={pet.id} pet={pet} onDelete={handleDeletePet} />
+            <PetCard 
+                key={pet.id}
+                pet={pet.id} 
+                onDelete={handleDeletePet} 
+                onClick={handlePetCardClick} 
+            />
           ))}
         </div>
 
