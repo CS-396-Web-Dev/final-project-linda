@@ -5,41 +5,17 @@ const PetContext = createContext();
 
 export const usePetContext = () => useContext(PetContext);
 
+export const PetProvider = ({ children }) => {
+  const [userFiles, setUserFiles] = useState({}); // create local state containing all the users and their pets (each key for a different recipe)
+  const [currentUser, setCurrentUser] = useState(0);
+  const [idToName, setIdToName] = useState({});
 
-export const PetProvider = ({children}) => {
-    const [userFiles, setUserFiles] = useState({});   // create local state containing all the users and their pets (each key for a different recipe)
-    const [currentUser, setCurrentUser] = useState(0);
-    const [idToName, setIdToName] = useState({});
-    
-    useEffect(() => {
-        if (localStorage.getItem('users')){
-          const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
-          const storedIds = JSON.parse(localStorage.getItem('ids')) || {};
-          setUserFiles(storedUsers);
-          setIdToName(storedIds)
-        }
-      }, []);
-    
-    const createPet = (petName, userId,img) => {
-        const temp = {...userFiles};
-        temp[userId][petName] = {"img":img, "hunger":0, "happiness":0, "energy":0, "growth_stage":0}
-        setUserFiles(temp);
-        localStorage.setItem('users', JSON.stringify(userFiles)); // save updated info to local storage
-    }
-
-    const createUser = (username) =>{
-      const newId = Object.keys(userFiles).length+1;
-      setIdToName((prev) => {
-        const updatedIdToName = { ...prev, [newId]: username };
-        localStorage.setItem('ids', JSON.stringify(updatedIdToName));
-        return updatedIdToName;
-      });
-      setUserFiles((prev) => {
-        const updatedUserFiles = { ...prev, [newId]: {} }; 
-        localStorage.setItem('users', JSON.stringify(updatedUserFiles));
-        return updatedUserFiles;
-      });
-
+  useEffect(() => {
+    if (localStorage.getItem("users")) {
+      const storedUsers = JSON.parse(localStorage.getItem("users")) || {};
+      const storedIds = JSON.parse(localStorage.getItem("ids")) || {};
+      setUserFiles(storedUsers);
+      setIdToName(storedIds);
     }
   }, []);
 
@@ -93,7 +69,6 @@ export const PetProvider = ({children}) => {
     localStorage.setItem("users", JSON.stringify(userFiles));
     localStorage.setItem("ids", JSON.stringify(idToName));
   };
-
 
   return (
     <PetContext.Provider
