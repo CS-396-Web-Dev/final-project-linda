@@ -6,7 +6,7 @@ import StatsPanel from "../components/StatsPanel"; // Adjust the path as needed
 import Image from "next/image";
 import PetIcon from "@/Components/PetIcon";
 import PetCard from "@/Components/PetCard";
-import { usePetContext } from './context/PetContext';
+import { usePetContext } from "./context/PetContext";
 
 export default function Home() {
   const router = useRouter();

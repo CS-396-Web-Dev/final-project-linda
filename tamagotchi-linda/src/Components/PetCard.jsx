@@ -1,15 +1,15 @@
-"use client"
+"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import {usePetContext} from '../app/context/PetContext' 
+import { usePetContext } from "../app/context/PetContext";
 
 const PetCard = ({ pet, onClick, onDelete }) => {
   const router = useRouter();
-  const {createPet, updatePet} = usePetContext();
+  const { createPet, updatePet } = usePetContext();
 
   const handlePetCardClick = (e) => {
-    onClick(pet)
-  }
+    onClick(pet);
+  };
 
   return (
     <div
@@ -25,6 +25,6 @@ const PetCard = ({ pet, onClick, onDelete }) => {
       </button>
     </div>
   );
-}
+};
 
 export default PetCard;
