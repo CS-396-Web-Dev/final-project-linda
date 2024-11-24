@@ -5,6 +5,7 @@ import StatsPanel from "@/Components/StatsPanel";
 import PetIcon from "@/Components/PetIcon";
 import { usePetContext } from "../../../../context/PetContext";
 
+
 export default function PetPage({ params: paramsPromise }) {
   const router = useRouter();
   const [params, setParams] = useState(null);
@@ -20,6 +21,7 @@ export default function PetPage({ params: paramsPromise }) {
   useEffect(() => {
     if (!params) return;
     const { userId, petId } = params;
+
     const users = JSON.parse(localStorage.getItem("users") || "{}");
     const userPets = users[userId];
 
@@ -34,6 +36,7 @@ export default function PetPage({ params: paramsPromise }) {
   console.log("params: ", params);
 
   if (!params || !pet) {
+
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-xl">Loading...</div>
@@ -57,6 +60,7 @@ export default function PetPage({ params: paramsPromise }) {
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-8">
         <h1 className="text-3xl font-bold">{pet.name}</h1>
         <PetIcon petGif={`/gifs/${pet.img}`} petAlt={pet.img} />
+
         <StatsPanel />
       </div>
     </div>

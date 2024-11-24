@@ -1,19 +1,23 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { usePetContext } from "../context/PetContext";
+
+"use client"
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {usePetContext} from '../context/PetContext'
 
 export default function CreateAccount() {
-  const [username, setUsername] = useState("");
-  const { createUser } = usePetContext();
+  const [username, setUsername] = useState(''); 
+  const {createUser} = usePetContext();
+
 
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createUser(username);
-    setUsername("");
+
+    setUsername('');
     router.push("/");
+
   };
 
   return (
