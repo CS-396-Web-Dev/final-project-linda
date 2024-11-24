@@ -2,16 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PetCard from "@/components/PetCard";
-<<<<<<< HEAD
 import { usePetContext } from "../../context/PetContext";
-=======
-import Image from "next/image";
->>>>>>> e6405a3 (working on pet gifs)
 
 export default function UserPage({ params: paramsPromise }) {
   const router = useRouter();
-  const { userFiles, idToName, createPet, updatePet} = usePetContext();
-  
+  const { userFiles, idToName, createPet, updatePet } = usePetContext();
+
   const [params, setParams] = useState(null);
   const [user, setUser] = useState(null);
   const [pets, setPets] = useState([]);
@@ -29,40 +25,35 @@ export default function UserPage({ params: paramsPromise }) {
   useEffect(() => {
     if (!params) return;
     const userId = params.userId;
-    const currentUser = idToName[userId]; 
+    const currentUser = idToName[userId];
     setUser(currentUser);
 
-    const userPets = userFiles[userId] || {}; 
-    setPets(Object.keys(userPets).map(petName => ({ id: petName, ...userPets[petName] }))); 
+    const userPets = userFiles[userId] || {};
+    setPets(
+      Object.keys(userPets).map((petName) => ({
+        id: petName,
+        ...userPets[petName],
+      }))
+    );
   }, [params, userFiles, idToName]);
 
   const handleAddPet = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    createPet(newPetName, params.userId, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg?20140729055059"); // Add a image?
-    setNewPetName('');
-=======
-    const newPet = {
-      id: Date.now(),
-      name: newPetName,
-      userId: params?.userId,
-      icon: newPetIcon,
-    };
-
-    const updatedPets = [...pets, newPet];
-    localStorage.setItem(`pets_${params.userId}`, JSON.stringify(updatedPets));
-    setPets(updatedPets);
+    createPet(
+      newPetName,
+      params.userId,
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg?20140729055059"
+    ); // Add a image?
     setNewPetName("");
->>>>>>> e6405a3 (working on pet gifs)
     setIsAddingPet(false);
     setNewPetIcon("");
   };
 
   const handleDeletePet = (petId) => {
-    const petName = petId; 
-    updatePet(petName, params.userId, "hunger", 0); 
-    delete userFiles[params.userId][petName]; 
-    setPets(pets.filter(pet => pet.id !== petId));
+    const petName = petId;
+    updatePet(petName, params.userId, "hunger", 0);
+    delete userFiles[params.userId][petName];
+    setPets(pets.filter((pet) => pet.id !== petId));
   };
 
   const handlePetCardClick = (petId) => {
@@ -89,13 +80,7 @@ export default function UserPage({ params: paramsPromise }) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-<<<<<<< HEAD
         <h1 className="text-3xl font-bold mb-8 text-center">{user}'s Pets</h1>
-=======
-        <h1 className="text-3xl font-bold mb-8 text-center">
-          {user.name}'s Pets
-        </h1>
->>>>>>> e6405a3 (working on pet gifs)
 
         {!isAddingPet ? (
           <button
@@ -169,11 +154,11 @@ export default function UserPage({ params: paramsPromise }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pets.map((pet) => (
-            <PetCard 
-                key={pet.id}
-                pet={pet.id} 
-                onDelete={handleDeletePet} 
-                onClick={handlePetCardClick} 
+            <PetCard
+              key={pet.id}
+              pet={pet.id}
+              onDelete={handleDeletePet}
+              onClick={handlePetCardClick}
             />
           ))}
         </div>
