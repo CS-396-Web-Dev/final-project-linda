@@ -39,11 +39,7 @@ export default function UserPage({ params: paramsPromise }) {
 
   const handleAddPet = (e) => {
     e.preventDefault();
-    createPet(
-      newPetName,
-      params.userId,
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg?20140729055059"
-    ); // Add a image?
+    createPet(newPetName, params.userId, newPetIcon);
     setNewPetName("");
     setIsAddingPet(false);
     setNewPetIcon("");

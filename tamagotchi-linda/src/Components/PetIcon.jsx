@@ -6,7 +6,7 @@ export default function PetIcon({ petGif, petAlt }) {
   return (
     <article className="p-6 rounded-lg shadow-lg bg-white border w-64 mx-auto">
       <div className="flex flex-col items-center">
-        <Image
+        <img
           src={petGif}
           alt={petAlt}
           className="w-36 h-36 rounded-md object-contain"
