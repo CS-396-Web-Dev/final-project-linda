@@ -11,10 +11,12 @@ export default function UserPage({ params: paramsPromise }) {
   const [params, setParams] = useState(null);
   const [user, setUser] = useState(null);
   const [pets, setPets] = useState([]);
-  const [newPetName, setNewPetName] = useState('');
+  const [newPetName, setNewPetName] = useState("");
   const [isAddingPet, setIsAddingPet] = useState(false);
+  const [newPetIcon, setNewPetIcon] = useState("");
 
   // Unwrap params
+
   useEffect(() => {
     paramsPromise.then((resolvedParams) => {
       setParams(resolvedParams);
@@ -33,12 +35,15 @@ export default function UserPage({ params: paramsPromise }) {
 
   const handleAddPet = (e) => {
     e.preventDefault();
-    createPet(newPetName, params.userId, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/1600px-Cute_dog.jpg?20140729055059"); // Add a image?
-    setNewPetName('');
+    createPet(newPetName, params.userId, newPetIcon);
+    setNewPetName("");
+
     setIsAddingPet(false);
+    setNewPetIcon("");
   };
 
   const handleDeletePet = (petId) => {
+
     const petName = petId; 
     updatePet(petName, params.userId, "hunger", 0); 
     delete userFiles[params.userId][petName]; 
@@ -81,7 +86,10 @@ export default function UserPage({ params: paramsPromise }) {
         ) : (
           <form onSubmit={handleAddPet} className="mb-8 space-y-4">
             <div>
-              <label htmlFor="petName" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="petName"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Pet Name
               </label>
               <input
@@ -92,6 +100,33 @@ export default function UserPage({ params: paramsPromise }) {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
+            </div>
+            {/* Pet Icon Selection */}
+            <div>
+              <p className="text-sm font-medium text-gray-700">
+                Choose a Pet Icon
+              </p>
+              <div className="mt-4 grid grid-cols-4 gap-4">
+                {["angry_cat.gif", "bunny.gif", "dog.gif", "lovey_cat.gif"].map(
+                  (gif, index) => (
+                    <div
+                      key={index}
+                      className={`border-2 rounded-md p-2 cursor-pointer ${
+                        newPetIcon === gif
+                          ? "border-blue-500"
+                          : "border-gray-300"
+                      }`}
+                      onClick={() => setNewPetIcon(gif)}
+                    >
+                      <img
+                        src={`/gifs/${gif}`}
+                        alt={`Pet Icon ${index + 1}`}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  )
+                )}
+              </div>
             </div>
             <div className="space-x-4">
               <button
@@ -113,6 +148,7 @@ export default function UserPage({ params: paramsPromise }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pets.map((pet) => (
+
             <PetCard 
                 key={pet.id}
                 pet={pet.id} 

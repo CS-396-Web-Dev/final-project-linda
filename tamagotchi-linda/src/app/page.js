@@ -1,3 +1,4 @@
+
 "use client"
 import React from "react";
 import { useRouter } from 'next/navigation';
@@ -19,6 +20,7 @@ export default function Home() {
   const handleCreateAccountClick = () => {
     router.push("/createAccount");
   };
+
   
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -26,6 +28,7 @@ export default function Home() {
         Welcome to Our Site
       </h1>
       <div className="space-x-4">
+
         <button 
           className="px-6 py-2 bg-periwinkle text-white rounded hover:scale-110"
           onClick={handleCreateAccountClick}
@@ -50,4 +53,5 @@ export default function Home() {
       {/* <PetCard/> */}
     </div>
   );
+
 600}

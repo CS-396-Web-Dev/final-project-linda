@@ -11,7 +11,7 @@ export default function PetPage({ params: paramsPromise }) {
   const [params, setParams] = useState(null);
   const [pet, setPet] = useState(null);
   const { userFiles } = usePetContext();
-  
+
   useEffect(() => {
     paramsPromise.then((resolvedParams) => {
       setParams(resolvedParams);
@@ -21,13 +21,22 @@ export default function PetPage({ params: paramsPromise }) {
   useEffect(() => {
     if (!params) return;
     const { userId, petId } = params;
-    const userPets = JSON.parse(localStorage.getItem(`pets_${userId}`) || "[]");
-    const currentPet = userPets.find((p) => p.id.toString() === petId);
-    setPet(currentPet);
+
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+    const userPets = users[userId];
+
+    if (userPets && userPets[petId]) {
+      setPet({
+        name: petId,
+        ...userPets[petId],
+      });
+    }
   }, [params]);
+
   console.log("params: ", params);
 
-  if (!params) {
+  if (!params || !pet) {
+
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-xl">Loading...</div>
@@ -49,8 +58,9 @@ export default function PetPage({ params: paramsPromise }) {
       </div>
 
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-8">
-        <h1 className="text-3xl font-bold">{pet}</h1>
-        <PetIcon petImage="/dog.svg" />
+        <h1 className="text-3xl font-bold">{pet.name}</h1>
+        <PetIcon petGif={`/gifs/${pet.img}`} petAlt={pet.img} />
+
         <StatsPanel />
       </div>
     </div>

@@ -1,3 +1,4 @@
+
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -7,11 +8,13 @@ export default function CreateAccount() {
   const [username, setUsername] = useState(''); 
   const {createUser} = usePetContext();
 
+
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createUser(username);
+
     setUsername('');
     router.push("/");
 
@@ -23,7 +26,10 @@ export default function CreateAccount() {
         <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
               Username
             </label>
             <input

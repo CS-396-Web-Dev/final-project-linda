@@ -1,3 +1,4 @@
+
 "use client"
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -10,6 +11,7 @@ const PetCard = ({ pet, onClick, onDelete }) => {
   const handlePetCardClick = (e) => {
     onClick(pet)
   }
+
 
   return (
     <div
