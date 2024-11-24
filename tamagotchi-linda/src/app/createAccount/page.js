@@ -5,7 +5,7 @@ import {usePetContext} from '../context/PetContext'
 
 export default function CreateAccount() {
   const [username, setUsername] = useState(''); 
-  const {currentUser, setCurrentUser, createUser} = usePetContext();
+  const {createUser} = usePetContext();
 
   const router = useRouter();
 
@@ -13,6 +13,8 @@ export default function CreateAccount() {
     e.preventDefault();
     createUser(username);
     setUsername('');
+    router.push("/");
+
   };
 
   return (

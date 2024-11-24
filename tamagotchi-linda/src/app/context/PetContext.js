@@ -28,15 +28,16 @@ export const PetProvider = ({children}) => {
 
     const createUser = (username) =>{
       const newId = Object.keys(userFiles).length+1;
-      const temp = {...userFiles};
-      temp[newId] = {};
-      setUserFiles(temp);
-      localStorage.setItem('users', JSON.stringify(userFiles)); // save updated info to local storage
-
-      const temp2 = {...idToName};
-      temp2[newId] = username;
-      setIdToName(temp2);
-      localStorage.setItem('ids', JSON.stringify(idToName)); // save updated info to local storage
+      setIdToName((prev) => {
+        const updatedIdToName = { ...prev, [newId]: username };
+        localStorage.setItem('ids', JSON.stringify(updatedIdToName));
+        return updatedIdToName;
+      });
+      setUserFiles((prev) => {
+        const updatedUserFiles = { ...prev, [newId]: {} }; 
+        localStorage.setItem('users', JSON.stringify(updatedUserFiles));
+        return updatedUserFiles;
+      });
     }
 
     const updatePet = (petName, userId, attribute, newValue) =>{
