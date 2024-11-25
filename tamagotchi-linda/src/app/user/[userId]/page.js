@@ -14,6 +14,7 @@ export default function UserPage({ params: paramsPromise }) {
   const [newPetName, setNewPetName] = useState("");
   const [isAddingPet, setIsAddingPet] = useState(false);
   const [newPetIcon, setNewPetIcon] = useState("");
+    const [nameError, setNameError] = useState("");
 
   // Unwrap params
   useEffect(() => {
@@ -36,6 +37,26 @@ export default function UserPage({ params: paramsPromise }) {
       }))
     );
   }, [params, userFiles, idToName]);
+
+  const validatePetName = (name) => {
+    if (!name.trim()) {
+      return "Pet name cannot be empty";
+    }
+    if (!/^[a-zA-Z]+$/.test(name)) {
+      return "Pet name can only contain letters";
+    }
+    if (params && userFiles[params.userId] && userFiles[params.userId][name]) {
+      return "You already have a pet with this name";
+    }
+
+    return "";
+  };
+
+  const handleNameChange = (e) => {
+    const name = e.target.value;
+    setNewPetName(name);
+    setNameError(validatePetName(name));
+  };
 
   const handleAddPet = (e) => {
     e.preventDefault();
@@ -92,16 +113,21 @@ export default function UserPage({ params: paramsPromise }) {
                 htmlFor="petName"
                 className="block text-sm font-medium text-gray-700"
               >
-                Pet Name
+                Pet Name (letters only)
               </label>
               <input
                 type="text"
                 id="petName"
                 value={newPetName}
-                onChange={(e) => setNewPetName(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                onChange={handleNameChange}
+                className={`mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                  nameError ? 'border-red-500' : 'border-gray-300'
+                }`}
                 required
               />
+              {nameError && (
+                <p className="mt-1 text-sm text-red-600">{nameError}</p>
+              )}
             </div>
             {/* Pet Icon Selection */}
             <div>
@@ -134,12 +160,17 @@ export default function UserPage({ params: paramsPromise }) {
               <button
                 type="submit"
                 className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                disabled={!!nameError || !newPetName || !newPetIcon}
               >
                 Save Pet
               </button>
               <button
                 type="button"
-                onClick={() => setIsAddingPet(false)}
+                onClick={() => {
+                  setIsAddingPet(false);
+                  setNameError("");
+                  setNewPetName("");
+                }}
                 className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
               >
                 Cancel
