@@ -1,13 +1,82 @@
-import React from 'react';
+"use client";
+import React, { useState, useEffect } from 'react';
+import { usePetContext } from '@/app/context/PetContext';
 import Bar from './BarTracker';
 
-const StatsPanel = () => {
-  // Example stat values
+const StatsPanel = ({ userId, petName }) => {
+  const { userFiles, updatePet } = usePetContext();
+  
+  // get data or use default vals
+  const initialPet = userFiles[userId]?.[petName] || {
+    hunger: 50,
+    happiness: 50,
+    energy: 50,
+    growth_stage: 0
+  };
+
+  const [pet, setPet] = useState(initialPet);
+  const [alerts, setAlerts] = useState([]);
+
+  useEffect(() => {
+    const currentPetData = userFiles[userId]?.[petName] || initialPet;
+    setPet(currentPetData);
+  }, [userFiles, userId, petName]);
+
+  useEffect(() => {
+    // we can change the rate if we want but rn its -1 per second
+    const decreaseInterval = setInterval(() => {
+      const newAlerts = [];
+      const updatedPet = { ...pet };
+      
+      ['hunger', 'happiness', 'energy'].forEach(stat => {
+        updatedPet[stat] = Math.max(0, updatedPet[stat] - 1);
+        
+        // alerts for low stats (<20)
+        if (updatedPet[stat] < 20) {
+          const alertMessage = {
+            'hunger': `${petName} is hungry!`,
+            'happiness': `${petName} is sad!`,
+            'energy': `${petName} is tired!`
+          }[stat];
+          if (!newAlerts.includes(alertMessage)) {
+            newAlerts.push(alertMessage);
+          }
+        }
+      });
+
+      setPet(updatedPet);
+      setAlerts(newAlerts);
+      updatePet(petName, userId, 'hunger', updatedPet.hunger);
+      updatePet(petName, userId, 'happiness', updatedPet.happiness);
+      updatePet(petName, userId, 'energy', updatedPet.energy);
+    }, 1000);
+
+    
+    return () => {
+      clearInterval(decreaseInterval);
+    };
+  }, [pet, petName, userId, updatePet]);
+
+  useEffect(() => {
+    const currentAlerts = [];
+    ['hunger', 'happiness', 'energy'].forEach(stat => {
+      if (pet[stat] < 20) {
+        const alertMessage = {
+          'hunger': `${petName} is hungry!`,
+          'happiness': `${petName} is sad!`,
+          'energy': `${petName} is tired!`
+        }[stat];
+        currentAlerts.push(alertMessage);
+      }
+    });
+    setAlerts(currentAlerts);
+  }, [pet, petName]);
+
   const stats = [
-    { label: 'Hunger', value: 30, maxValue: 100, color: '#89CFF0' }, // Light blue
-    { label: 'Happiness', value: 80, maxValue: 100, color: '#FFD1DC' }, // Pink
-    { label: 'Energy', value: 60, maxValue: 100, color: '#8F99FB' }, // Periwinkle
-    { label: 'Growth Stage', value: 40, maxValue: 100, color: '#1D3461' }, // Dark blue
+    { label: 'Hunger', value: pet.hunger, maxValue: 100, color: '#89CFF0' },
+    { label: 'Happiness', value: pet.happiness, maxValue: 100, color: '#FFD1DC' },
+    { label: 'Energy', value: pet.energy, maxValue: 100, color: '#8F99FB' },
+    { label: 'Growth Stage', value: pet.growth_stage, maxValue: 100, color: '#1D3461' },
   ];
 
   return (
@@ -21,6 +90,19 @@ const StatsPanel = () => {
           color={stat.color}
         />
       ))}
+      {alerts.length > 0 && (
+        <div className="mt-4 space-y-2">
+          {alerts.map((alert, index) => (
+            <div 
+              key={index} 
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" 
+              role="alert"
+            >
+              {alert}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

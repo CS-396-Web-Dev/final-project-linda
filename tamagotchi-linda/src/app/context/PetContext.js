@@ -21,12 +21,15 @@ export const PetProvider = ({ children }) => {
 
   const createPet = (petName, userId, img) => {
     const temp = { ...userFiles };
+    if (!temp[userId]) {
+      temp[userId] = {};
+    }
     temp[userId][petName] = {
       img: img,
-      hunger: 0,
-      happiness: 0,
-      energy: 0,
-      growth_stage: 0,
+      hunger: 30,
+      happiness: 90,
+      energy: 90,
+      growth_stage: 20,
     };
     setUserFiles(temp);
     localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
@@ -48,6 +51,14 @@ export const PetProvider = ({ children }) => {
 
   const updatePet = (petName, userId, attribute, newValue) => {
     const temp = { ...userFiles };
+    if (!temp[userId]) {
+      console.error(`User ${userId} not found`);
+      return;
+    }
+    if (!temp[userId][petName]) {
+      console.error(`Pet ${petName} not found for user ${userId}`);
+      return;
+    }
     temp[userId][petName][attribute] = newValue;
     setUserFiles(temp);
     localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage

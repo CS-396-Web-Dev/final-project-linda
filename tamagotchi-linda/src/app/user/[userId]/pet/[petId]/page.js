@@ -31,8 +31,6 @@ export default function PetPage({ params: paramsPromise }) {
     }
   }, [params]);
 
-  console.log("params: ", params);
-
   if (!params || !pet) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -40,8 +38,7 @@ export default function PetPage({ params: paramsPromise }) {
       </div>
     );
   }
-
-  const { userId } = params;
+  const { userId, petId } = params;
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
@@ -56,8 +53,16 @@ export default function PetPage({ params: paramsPromise }) {
 
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-8">
         <h1 className="text-3xl font-bold">{pet.name}</h1>
-        <PetIcon petGif={`/gifs/${pet.img}`} petAlt={pet.img} />
-        <StatsPanel />
+        <PetIcon 
+          petGif={`/gifs/${pet.img}`} 
+          petAlt={pet.img}
+          userId={userId}
+          petName={pet.name}
+        />
+        <StatsPanel
+          userId={userId}
+          petName={pet.name}
+        />
       </div>
     </div>
   );
