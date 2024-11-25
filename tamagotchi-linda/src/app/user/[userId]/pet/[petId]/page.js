@@ -53,7 +53,12 @@ export default function PetPage({ params: paramsPromise }) {
 
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-8">
         <h1 className="text-3xl font-bold">{pet.name}</h1>
-        <PetIcon petGif={`/gifs/${pet.img}`} petAlt={pet.img} />
+        <PetIcon 
+          petGif={`/gifs/${pet.img}`} 
+          petAlt={pet.img}
+          userId={userId}
+          petName={pet.name}
+        />
         <StatsPanel
           userId={userId}
           petName={pet.name}
