@@ -184,6 +184,7 @@ export default function UserPage({ params: paramsPromise }) {
             <PetCard
               key={pet.id}
               pet={pet.id}
+              img={userFiles[params.userId][pet.id]["img"]}
               onDelete={handleDeletePet}
               onClick={handlePetCardClick}
             />

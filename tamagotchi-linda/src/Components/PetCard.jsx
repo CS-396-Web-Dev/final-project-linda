@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { usePetContext } from "../app/context/PetContext";
 
-const PetCard = ({ pet, onClick, onDelete }) => {
+const PetCard = ({ pet, img, onClick, onDelete }) => {
   const router = useRouter();
   const { createPet, updatePet } = usePetContext();
 
@@ -23,6 +23,7 @@ const PetCard = ({ pet, onClick, onDelete }) => {
       >
         Delete
       </button>
+      <img src = {`/gifs/${img}`} alt = {img}/>
     </div>
   );
 };
