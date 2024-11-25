@@ -38,7 +38,9 @@ const StatsPanel = ({ userId, petName }) => {
             'happiness': `${petName} is sad!`,
             'energy': `${petName} is tired!`
           }[stat];
-          newAlerts.push(alertMessage);
+          if (!newAlerts.includes(alertMessage)) {
+            newAlerts.push(alertMessage);
+          }
         }
       });
 
@@ -54,6 +56,21 @@ const StatsPanel = ({ userId, petName }) => {
       clearInterval(decreaseInterval);
     };
   }, [pet, petName, userId, updatePet]);
+
+  useEffect(() => {
+    const currentAlerts = [];
+    ['hunger', 'happiness', 'energy'].forEach(stat => {
+      if (pet[stat] < 20) {
+        const alertMessage = {
+          'hunger': `${petName} is hungry!`,
+          'happiness': `${petName} is sad!`,
+          'energy': `${petName} is tired!`
+        }[stat];
+        currentAlerts.push(alertMessage);
+      }
+    });
+    setAlerts(currentAlerts);
+  }, [pet, petName]);
 
   const stats = [
     { label: 'Hunger', value: pet.hunger, maxValue: 100, color: '#89CFF0' },
