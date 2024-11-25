@@ -22,7 +22,9 @@ const UserCard = ({ user, onClick, onDelete }) => {
       className="bg-white border rounded-lg p-4 shadow cursor-pointer hover:shadow-md transition-shadow relative"
       onClick={handleCardClick}
     >
-      <h2 className="text-xl font-bold text-center">{username}</h2>
+      <h2 className="text-xl text-darkblue font-bold text-center">
+        {username}
+      </h2>
       <button
         onClick={handleDelete}
         className="absolute right-2 top-1/2 -translate-y-1/2 bg-periwinkle hover:bg-hoverperiwinkle text-white rounded p-1"

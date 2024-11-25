@@ -14,7 +14,7 @@ export default function UserPage({ params: paramsPromise }) {
   const [newPetName, setNewPetName] = useState("");
   const [isAddingPet, setIsAddingPet] = useState(false);
   const [newPetIcon, setNewPetIcon] = useState("");
-    const [nameError, setNameError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   // Unwrap params
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function UserPage({ params: paramsPromise }) {
     setIsAddingPet(false);
     setNewPetIcon("");
   };
-  
+
   const handleDeletePet = (petId) => {
     const petName = petId;
     updatePet(petName, params.userId, "hunger", 0);
@@ -89,7 +89,7 @@ export default function UserPage({ params: paramsPromise }) {
     <div className="min-h-screen bg-gray-100">
       <div className="p-4">
         <button
-          className="h-8 w-24 text-gray-600 hover:text-gray-800 bg-gray-200 rounded"
+          className="h-8 w-24 text-darkblue hover:text-hoverdarkblue bg-gray-200 rounded"
           onClick={() => router.push("/")}
         >
           Home
@@ -97,7 +97,9 @@ export default function UserPage({ params: paramsPromise }) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">{user}'s Pets</h1>
+        <h1 className="text-3xl text-darkblue font-bold mb-8 text-center">
+          {user}'s Pets
+        </h1>
 
         {!isAddingPet ? (
           <button
@@ -108,10 +110,10 @@ export default function UserPage({ params: paramsPromise }) {
           </button>
         ) : (
           <form onSubmit={handleAddPet} className="mb-8 space-y-4">
-            <div>
+            <div className="text-darkblue">
               <label
                 htmlFor="petName"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-darkblue"
               >
                 Pet Name (letters only)
               </label>
@@ -121,7 +123,7 @@ export default function UserPage({ params: paramsPromise }) {
                 value={newPetName}
                 onChange={handleNameChange}
                 className={`mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
-                  nameError ? 'border-red-500' : 'border-gray-300'
+                  nameError ? "border-red-500" : "border-gray-300"
                 }`}
                 required
               />
@@ -131,7 +133,7 @@ export default function UserPage({ params: paramsPromise }) {
             </div>
             {/* Pet Icon Selection */}
             <div>
-              <p className="text-sm font-medium text-gray-700">
+              <p className="text-sm font-medium text-darkblue">
                 Choose a Pet Icon
               </p>
               <div className="mt-4 grid grid-cols-4 gap-4">
@@ -192,7 +194,7 @@ export default function UserPage({ params: paramsPromise }) {
         </div>
 
         {pets.length === 0 && (
-          <div className="text-center text-gray-500 mt-8">
+          <div className="text-center text-darkblue mt-8">
             No pets added yet. Click "Add New Pet" to get started!
           </div>
         )}

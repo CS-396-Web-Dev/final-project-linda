@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        hoverdarkblue: "#142545",
         darkblue: "#1D3461",
         lightblue: "#89CFF0",
         hoverlightblue: "#6EC6FF",

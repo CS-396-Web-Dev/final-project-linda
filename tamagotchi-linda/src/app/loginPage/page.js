@@ -56,7 +56,7 @@ export default function Login() {
         </button>
       </div>
       <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
-        <h1 className="text-2xl font-bold mb-6">Select User</h1>
+        <h1 className="text-2xl text-darkblue font-bold mb-6">Select User</h1>
         <div className="space-y-4 w-96">
           {Object.keys(userFiles).length === 0 ? (
             <div className="text-center text-gray-500">No users found</div>
