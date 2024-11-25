@@ -44,7 +44,7 @@ export default function UserPage({ params: paramsPromise }) {
     setIsAddingPet(false);
     setNewPetIcon("");
   };
-
+  
   const handleDeletePet = (petId) => {
     const petName = petId;
     updatePet(petName, params.userId, "hunger", 0);
