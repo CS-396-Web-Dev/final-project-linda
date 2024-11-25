@@ -30,6 +30,7 @@ export const PetProvider = ({ children }) => {
       happiness: 90,
       energy: 90,
       growth_stage: 20,
+      interaction: 0
     };
     setUserFiles(temp);
     localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
@@ -60,6 +61,11 @@ export const PetProvider = ({ children }) => {
       return;
     }
     temp[userId][petName][attribute] = newValue;
+    temp[userId][petName]['interaction']+=1;
+
+    if (temp[userId][petName]['interaction']%10==0){
+      temp[userId][petName]['growth_stage']+=10;
+    }
     setUserFiles(temp);
     localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
   };
