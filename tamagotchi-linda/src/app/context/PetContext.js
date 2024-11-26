@@ -86,6 +86,15 @@ export const PetProvider = ({ children }) => {
     localStorage.setItem("users", JSON.stringify(userFiles));
     localStorage.setItem("ids", JSON.stringify(idToName));
   };
+  
+  const deletePet = (petName, userId) => {
+    const temp = { ...userFiles };
+    if (temp[userId] && temp[userId][petName]) {
+      delete temp[userId][petName];
+      setUserFiles(temp);
+      localStorage.setItem("users", JSON.stringify(temp));
+    }
+  };
 
   return (
     <PetContext.Provider
@@ -98,6 +107,7 @@ export const PetProvider = ({ children }) => {
         createUser,
         updatePet,
         deleteUser,
+        deletePet,
       }}
     >
       {children}

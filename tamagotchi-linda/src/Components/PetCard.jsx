@@ -3,12 +3,17 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { usePetContext } from "../app/context/PetContext";
 
-const PetCard = ({ pet, img, onClick, onDelete }) => {
+const PetCard = ({ pet, userid, img, onClick }) => {
   const router = useRouter();
-  const { createPet, updatePet } = usePetContext();
+  const { deletePet } = usePetContext();
 
   const handlePetCardClick = (e) => {
     onClick(pet);
+  };
+
+  const handleDeletePet = (e) => {
+    e.stopPropagation(); 
+    deletePet(pet, userid);
   };
 
   return (
@@ -16,13 +21,13 @@ const PetCard = ({ pet, img, onClick, onDelete }) => {
       className="bg-white border rounded-lg p-4 shadow cursor-pointer hover:shadow-md transition-shadow relative"
       onClick={handlePetCardClick}
     >
-      <h3 className="text-xl text-darkblue font-semibold mb-2 ">{pet}</h3>
       <button
-        onClick={() => onDelete(pet)}
-        className="absolute top-4 right-4 px-3 py-1 bg-periwinkle text-white rounded hover:scale-110 text-sm"
+        className="delete-button absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 z-10"
+        onClick={handleDeletePet}
       >
         Delete
       </button>
+      <h3 className="text-xl text-darkblue font-semibold mb-2 ">{pet}</h3>
       <img src={`/gifs/${img}`} alt={img} />
     </div>
   );
