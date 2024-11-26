@@ -16,6 +16,10 @@ export default function CreateAccount() {
     router.push("/");
   };
 
+  const handleCancel = () => {
+    router.push("/");
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
@@ -39,10 +43,18 @@ export default function CreateAccount() {
           </div>
           <button
             type="submit"
-            className="w-full bg-lightblue text-white rounded-md py-2 px-2 hover:scale-110"
+            className="w-full bg-darkblue text-white rounded-md py-2 px-2 hover:scale-110"
           >
             Done
           </button>
+          <button
+              type="button"
+              onClick={handleCancel}
+              className=" w-full bg-lightblue text-white rounded-md py-2 px-2 hover:scale-110"
+            >
+              Cancel
+            </button>
+
         </form>
       </div>
     </div>
