@@ -16,6 +16,7 @@ export default function UserPage({ params: paramsPromise }) {
   const [newPetIcon, setNewPetIcon] = useState("");
   const [nameError, setNameError] = useState("");
 
+
   // Unwrap params
   useEffect(() => {
     paramsPromise.then((resolvedParams) => {
@@ -66,12 +67,6 @@ export default function UserPage({ params: paramsPromise }) {
     setNewPetIcon("");
   };
 
-  const handleDeletePet = (petId) => {
-    const petName = petId;
-    updatePet(petName, params.userId, "hunger", 0);
-    delete userFiles[params.userId][petName];
-    setPets(pets.filter((pet) => pet.id !== petId));
-  };
 
   const handlePetCardClick = (petId) => {
     router.push(`/user/${params.userId}/pet/${petId}`);
@@ -182,15 +177,19 @@ export default function UserPage({ params: paramsPromise }) {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {pets.map((pet) => (
+          {pets.map((pet) => {
+            const petImg = userFiles[params.userId]?.[pet.id]?.img;
+          
+            return petImg ? (
             <PetCard
               key={pet.id}
               pet={pet.id}
-              img={userFiles[params.userId][pet.id]["img"]}
-              onDelete={handleDeletePet}
+              userid={params.userId}
+              img={petImg}
               onClick={handlePetCardClick}
             />
-          ))}
+          ) : null;
+        })}
         </div>
 
         {pets.length === 0 && (
