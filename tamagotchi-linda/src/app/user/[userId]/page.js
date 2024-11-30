@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import {React, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import PetCard from "@/components/PetCard";
+import PetCard from "@/Components/PetCard";
 import { usePetContext } from "../../context/PetContext";
 
 export default function UserPage({ params: paramsPromise }) {
@@ -15,7 +15,6 @@ export default function UserPage({ params: paramsPromise }) {
   const [isAddingPet, setIsAddingPet] = useState(false);
   const [newPetIcon, setNewPetIcon] = useState("");
   const [nameError, setNameError] = useState("");
-
 
   // Unwrap params
   useEffect(() => {

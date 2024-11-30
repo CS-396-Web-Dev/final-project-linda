@@ -7,10 +7,9 @@ export const usePetContext = () => useContext(PetContext);
 
 export const PetProvider = ({ children }) => {
   const [userFiles, setUserFiles] = useState({}); // create local state containing all the users and their pets (each key for a different recipe)
-  const [currentUser, setCurrentUser] = useState(0);
   const [idToName, setIdToName] = useState({});
 
-  useEffect(() => {
+  useEffect(() => { // when page first loads
     if (localStorage.getItem("users")) {
       const storedUsers = JSON.parse(localStorage.getItem("users")) || {};
       const storedIds = JSON.parse(localStorage.getItem("ids")) || {};
@@ -18,6 +17,11 @@ export const PetProvider = ({ children }) => {
       setIdToName(storedIds);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('users', JSON.stringify(userFiles));
+    localStorage.setItem('ids', JSON.stringify(idToName));
+  }, [userFiles, idToName]); // triggers effect only when userFiles or idToName changes
 
   const createPet = (petName, userId, img) => {
     const temp = { ...userFiles };
@@ -32,20 +36,22 @@ export const PetProvider = ({ children }) => {
       growth_stage: 20,
       interaction: 0
     };
+
     setUserFiles(temp);
-    localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
+    // localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
   };
 
   const createUser = (username) => {
-    const newId = Object.keys(userFiles).length + 1;
+    const newId = Date.now();
     setIdToName((prev) => {
       const updatedIdToName = { ...prev, [newId]: username };
-      localStorage.setItem("ids", JSON.stringify(updatedIdToName));
+      // localStorage.setItem("ids", JSON.stringify(updatedIdToName));
       return updatedIdToName;
     });
+
     setUserFiles((prev) => {
       const updatedUserFiles = { ...prev, [newId]: {} };
-      localStorage.setItem("users", JSON.stringify(updatedUserFiles));
+      // localStorage.setItem("users", JSON.stringify(updatedUserFiles));
       return updatedUserFiles;
     });
   };
@@ -67,7 +73,7 @@ export const PetProvider = ({ children }) => {
       temp[userId][petName]['growth_stage']+=10;
     }
     setUserFiles(temp);
-    localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
+    // localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage
   };
 
   const deleteUser = (username) => {
@@ -83,8 +89,8 @@ export const PetProvider = ({ children }) => {
     setUserFiles(temp);
     setIdToName(temp2);
 
-    localStorage.setItem("users", JSON.stringify(userFiles));
-    localStorage.setItem("ids", JSON.stringify(idToName));
+    // localStorage.setItem("users", JSON.stringify(userFiles));
+    // localStorage.setItem("ids", JSON.stringify(idToName));
   };
   
   const deletePet = (petName, userId) => {
@@ -92,7 +98,7 @@ export const PetProvider = ({ children }) => {
     if (temp[userId] && temp[userId][petName]) {
       delete temp[userId][petName];
       setUserFiles(temp);
-      localStorage.setItem("users", JSON.stringify(temp));
+      // localStorage.setItem("users", JSON.stringify(temp));
     }
   };
 
@@ -100,9 +106,7 @@ export const PetProvider = ({ children }) => {
     <PetContext.Provider
       value={{
         userFiles,
-        currentUser,
         idToName,
-        setCurrentUser,
         createPet,
         createUser,
         updatePet,
