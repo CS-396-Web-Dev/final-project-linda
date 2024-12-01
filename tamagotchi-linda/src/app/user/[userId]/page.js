@@ -83,7 +83,7 @@ export default function UserPage({ params: paramsPromise }) {
     <div className="min-h-screen bg-gray-100">
       <div className="p-4">
         <button
-          className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded"n 
+          className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded"
           onClick={() => router.push("/")}
         >
           Home
@@ -104,7 +104,7 @@ export default function UserPage({ params: paramsPromise }) {
           </button>
         ) : (
           <form onSubmit={handleAddPet} className="mb-8 space-y-4">
-            <div className="text-darkblue">
+            <div>
               <label
                 htmlFor="petName"
                 className="block text-sm font-medium text-darkblue"
@@ -116,7 +116,7 @@ export default function UserPage({ params: paramsPromise }) {
                 id="petName"
                 value={newPetName}
                 onChange={handleNameChange}
-                className={`mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                className={`mt-1 block w-full text-darkblue rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
                   nameError ? "border-red-500" : "border-gray-300"
                 }`}
                 required
