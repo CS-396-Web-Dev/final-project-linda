@@ -6,7 +6,7 @@ import { usePetContext } from "../../context/PetContext";
 
 export default function UserPage({ params: paramsPromise }) {
   const router = useRouter();
-  const { userFiles, idToName, createPet, updatePet } = usePetContext();
+  const { userFiles, idToName, createPet } = usePetContext();
 
   const [params, setParams] = useState(null);
   const [user, setUser] = useState(null);
