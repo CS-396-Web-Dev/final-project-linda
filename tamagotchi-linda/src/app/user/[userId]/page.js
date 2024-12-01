@@ -83,7 +83,7 @@ export default function UserPage({ params: paramsPromise }) {
     <div className="min-h-screen bg-gray-100">
       <div className="p-4">
         <button
-          className="h-8 w-24 text-darkblue hover:text-hoverdarkblue bg-gray-200 rounded"
+          className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded"n 
           onClick={() => router.push("/")}
         >
           Home

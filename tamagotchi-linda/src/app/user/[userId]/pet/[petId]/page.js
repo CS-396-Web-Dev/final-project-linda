@@ -41,17 +41,18 @@ export default function PetPage({ params: paramsPromise }) {
   const { userId, petId } = params;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-gray-100">
       <div className="p-4 ">
         <button
-          className="h-8 w-24 text-darkblue hover:text-hoverdarkblue bg-gray-200 rounded"
+          className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded"
+
           onClick={() => router.push(`/user/${userId}`)}
         >
           Back
         </button>
       </div>
 
-      <div className="max-w-4xl mx-auto flex flex-col items-center space-y-8">
+       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-8">
         <h1 className="text-3xl text-darkblue font-bold">{pet.name}</h1>
         <PetIcon
           petGif={`/gifs/${pet.img}`}
