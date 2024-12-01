@@ -23,7 +23,7 @@ export default function CreateAccount() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-6 text-center">Create Account</h1>
+        <h1 className="text-2xl text-darkblue font-bold mb-6 text-center">Create Account</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
             <label
               htmlFor="username"
