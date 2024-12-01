@@ -7,9 +7,9 @@ import { usePetContext } from "../../../../context/PetContext";
 
 export default function PetPage({ params: paramsPromise }) {
   const router = useRouter();
+  const { userFiles, updatePet } = usePetContext();
   const [params, setParams] = useState(null);
   const [pet, setPet] = useState(null);
-  const { userFiles } = usePetContext();
 
   useEffect(() => {
     paramsPromise.then((resolvedParams) => {
@@ -20,16 +20,27 @@ export default function PetPage({ params: paramsPromise }) {
   useEffect(() => {
     if (!params) return;
     const { userId, petId } = params;
-    const users = JSON.parse(localStorage.getItem("users") || "{}");
-    const userPets = users[userId];
 
+    const userPets = userFiles[userId];
     if (userPets && userPets[petId]) {
       setPet({
         name: petId,
         ...userPets[petId],
       });
     }
-  }, [params]);
+  }, [params, userFiles]);
+
+  const handleStatUpdate = (attribute, value) => {
+    if (!params || !pet) return;
+    const { userId, petId } = params;
+
+    updatePet(petId, userId, attribute, value);
+
+    setPet((prev) => ({
+      ...prev,
+      [attribute]: value,
+    }));
+  };
 
   if (!params || !pet) {
     return (
@@ -38,7 +49,7 @@ export default function PetPage({ params: paramsPromise }) {
       </div>
     );
   }
-  const { userId, petId } = params;
+  const { userId } = params;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -60,7 +71,12 @@ export default function PetPage({ params: paramsPromise }) {
           userId={userId}
           petName={pet.name}
         />
-        <StatsPanel userId={userId} petName={pet.name} />
+        <StatsPanel
+          userId={userId}
+          petName={pet.name}
+          petStats={pet}
+          onStatUpdate={handleStatUpdate}
+        />
       </div>
     </div>
   );
