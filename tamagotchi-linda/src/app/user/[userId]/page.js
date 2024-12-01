@@ -16,7 +16,6 @@ export default function UserPage({ params: paramsPromise }) {
   const [newPetIcon, setNewPetIcon] = useState("");
   const [nameError, setNameError] = useState("");
 
-  // Unwrap params
   useEffect(() => {
     paramsPromise.then((resolvedParams) => {
       setParams(resolvedParams);
@@ -39,14 +38,21 @@ export default function UserPage({ params: paramsPromise }) {
   }, [params, userFiles, idToName]);
 
   const validatePetName = (name) => {
+    const lowercasedName = name.toLowerCase();
     if (!name.trim()) {
       return "Pet name cannot be empty";
     }
     if (!/^[a-zA-Z]+$/.test(name)) {
       return "Pet name can only contain letters";
     }
-    if (params && userFiles[params.userId] && userFiles[params.userId][name]) {
-      return "You already have a pet with this name";
+    if (
+      params &&
+      userFiles[params.userId] &&
+      Object.keys(userFiles[params.userId])
+        .map((existingName) => existingName.toLowerCase())
+        .includes(lowercasedName)
+    ) {
+      return "You already have a pet with this name. Please choose a different name.";
     }
 
     return "";
