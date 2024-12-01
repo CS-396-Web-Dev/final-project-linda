@@ -50,7 +50,6 @@ export default function Login() {
           className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded"
           onClick={() => router.push("/")}
         >
-          {" "}
           Home
         </button>
       </div>
