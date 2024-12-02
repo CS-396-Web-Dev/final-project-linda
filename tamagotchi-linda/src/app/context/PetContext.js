@@ -55,8 +55,8 @@ export const PetProvider = ({ children }) => {
       return updatedUserFiles;
     });
   };
-
-  const updatePet = (petName, userId, attribute, newValue) => {
+  
+  const updatePet = (petName, userId, attribute, newValue, source = "system") => {
     const temp = { ...userFiles };
     if (!temp[userId]) {
       console.error(`User ${userId} not found`);
@@ -66,11 +66,19 @@ export const PetProvider = ({ children }) => {
       console.error(`Pet ${petName} not found for user ${userId}`);
       return;
     }
-    temp[userId][petName][attribute] = newValue;
-    temp[userId][petName]['interaction']+=1;
 
-    if (temp[userId][petName]['interaction']%10==0){
-      temp[userId][petName]['growth_stage']+=10;
+    const temp2 = temp[userId][petName];
+
+    if (newValue !== temp2[attribute]) {
+      temp2[attribute] = newValue;
+
+      if (source === "user" && newValue < 100) {
+        temp2["interaction"] += 1;
+
+        if (temp2['interaction']%10 === 0){
+          temp2['growth_stage'] += 10;
+        }
+      }
     }
     setUserFiles(temp);
     // localStorage.setItem("users", JSON.stringify(userFiles)); // save updated info to local storage

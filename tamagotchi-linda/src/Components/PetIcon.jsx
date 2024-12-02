@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./atoms/Button";
-import Image from "next/image";
+// import Image from "next/image";
 import { usePetContext } from '@/app/context/PetContext';
 
 const PetIcon = ({ petGif, petAlt, userId, petName }) => {
@@ -12,15 +12,15 @@ const PetIcon = ({ petGif, petAlt, userId, petName }) => {
     switch(action) {
       case 'feed':
         const newHunger = Math.min(currentStats.hunger + 10, 100);
-        updatePet(petName, userId, 'hunger', newHunger);
+        updatePet(petName, userId, 'hunger', newHunger, 'user');
         break;
       case 'play':
         const newHappiness = Math.min(currentStats.happiness + 10, 100);
-        updatePet(petName, userId, 'happiness', newHappiness);
+        updatePet(petName, userId, 'happiness', newHappiness, 'user');
         break;
       case 'sleep':
         const newEnergy = Math.min(currentStats.energy + 10, 100);
-        updatePet(petName, userId, 'energy', newEnergy);
+        updatePet(petName, userId, 'energy', newEnergy, 'user');
         break;
     }
   };
