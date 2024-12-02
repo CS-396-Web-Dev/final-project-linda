@@ -91,7 +91,7 @@ const StatsPanel = ({ userId, petName }) => {
       role="region"
       aria-labelledby="stats-panel-title"
     >
-      <h2 id="stats-panel-title" className="text-lg font-semibold">
+      <h2 id="stats-panel-title" className="text-lg font-bold text-darkblue">
         {petName}&apos;s Stats
       </h2>
       {stats.map((stat, index) => (
