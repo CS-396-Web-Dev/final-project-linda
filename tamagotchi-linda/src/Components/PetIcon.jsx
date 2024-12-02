@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "./atoms/Button";
 import { usePetContext } from "@/app/context/PetContext";
 
 const PetIcon = ({ petGif, petAlt, userId, petName }) => {
@@ -48,24 +47,27 @@ const PetIcon = ({ petGif, petAlt, userId, petName }) => {
       </h2>
 
       <div className="mt-4 flex justify-center space-x-4">
-        <Button
-          buttonText="Feed"
-          buttonId="feed-button"
+        <button
+          className="w-12 h-12 rounded-full bg-periwinkle text-white flex items-center justify-center hover:bg-hoverperiwinkle focus:outline-none focus:ring-2 focus:ring-lightblue"
           onClick={() => handleAction("feed")}
           aria-label={`Feed ${petName} to increase hunger`}
-        />
-        <Button
-          buttonText="Play"
-          buttonId="play-button"
+        >
+          Feed
+        </button>
+        <button
+          className="w-12 h-12 rounded-full bg-periwinkle text-white flex items-center justify-center hover:bg-hoverperiwinkle focus:outline-none focus:ring-2 focus:ring-lightblue"
           onClick={() => handleAction("play")}
           aria-label={`Play with ${petName} to increase happiness`}
-        />
-        <Button
-          buttonText="Sleep"
-          buttonId="sleep-button"
+        >
+          Play
+        </button>
+        <button
+          className="w-12 h-12 rounded-full bg-periwinkle text-white flex items-center justify-center hover:bg-hoverperiwinkle focus:outline-none focus:ring-2 focus:ring-lightblue"
           onClick={() => handleAction("sleep")}
           aria-label={`Put ${petName} to sleep to increase energy`}
-        />
+        >
+          Sleep
+        </button>
       </div>
     </article>
   );

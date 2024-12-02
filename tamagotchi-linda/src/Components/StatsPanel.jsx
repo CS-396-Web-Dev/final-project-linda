@@ -92,7 +92,7 @@ const StatsPanel = ({ userId, petName }) => {
       aria-labelledby="stats-panel-title"
     >
       <h2 id="stats-panel-title" className="text-lg font-semibold">
-        {petName}'s Stats
+        {petName}&apos;s Stats
       </h2>
       {stats.map((stat, index) => (
         <Bar

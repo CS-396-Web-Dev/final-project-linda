@@ -106,7 +106,7 @@ export default function UserPage({ params: paramsPromise }) {
           className="text-3xl text-darkblue font-bold mb-8 text-center"
           id="user-pets-heading"
         >
-          {user}'s Pets
+          {user}&apos;s Pets
         </h1>
 
         {!isAddingPet ? (
@@ -239,7 +239,7 @@ export default function UserPage({ params: paramsPromise }) {
             role="alert"
             aria-live="polite"
           >
-            No pets added yet. Click "Add New Pet" to get started!
+            No pets added yet. Click &quot;Add New Pet&quot; to get started!
           </div>
         )}
       </div>
