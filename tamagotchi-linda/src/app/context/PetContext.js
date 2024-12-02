@@ -9,7 +9,8 @@ export const PetProvider = ({ children }) => {
   const [userFiles, setUserFiles] = useState({}); // create local state containing all the users and their pets (each key for a different recipe)
   const [idToName, setIdToName] = useState({});
 
-  useEffect(() => { // when page first loads
+  useEffect(() => {
+    // when page first loads
     if (localStorage.getItem("users")) {
       const storedUsers = JSON.parse(localStorage.getItem("users")) || {};
       const storedIds = JSON.parse(localStorage.getItem("ids")) || {};
@@ -19,8 +20,8 @@ export const PetProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('users', JSON.stringify(userFiles));
-    localStorage.setItem('ids', JSON.stringify(idToName));
+    localStorage.setItem("users", JSON.stringify(userFiles));
+    localStorage.setItem("ids", JSON.stringify(idToName));
   }, [userFiles, idToName]); // triggers effect only when userFiles or idToName changes
 
   const createPet = (petName, userId, img) => {
@@ -34,7 +35,7 @@ export const PetProvider = ({ children }) => {
       happiness: 90,
       energy: 90,
       growth_stage: 20,
-      interaction: 0
+      interaction: 0,
     };
 
     setUserFiles(temp);
@@ -55,8 +56,14 @@ export const PetProvider = ({ children }) => {
       return updatedUserFiles;
     });
   };
-  
-  const updatePet = (petName, userId, attribute, newValue, source = "system") => {
+
+  const updatePet = (
+    petName,
+    userId,
+    attribute,
+    newValue,
+    source = "system"
+  ) => {
     const temp = { ...userFiles };
     if (!temp[userId]) {
       console.error(`User ${userId} not found`);
@@ -75,8 +82,8 @@ export const PetProvider = ({ children }) => {
       if (source === "user" && newValue < 100) {
         temp2["interaction"] += 1;
 
-        if (temp2['interaction']%10 === 0){
-          temp2['growth_stage'] += 10;
+        if (temp2["interaction"] % 10 === 0) {
+          temp2["growth_stage"] += 10;
         }
       }
     }
@@ -100,7 +107,7 @@ export const PetProvider = ({ children }) => {
     // localStorage.setItem("users", JSON.stringify(userFiles));
     // localStorage.setItem("ids", JSON.stringify(idToName));
   };
-  
+
   const deletePet = (petName, userId) => {
     const temp = { ...userFiles };
     if (temp[userId] && temp[userId][petName]) {
