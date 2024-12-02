@@ -18,9 +18,6 @@ const Bar = ({ label, value, maxValue, color }) => {
         aria-valuenow={value}
         aria-valuemin={0}
         aria-valuemax={maxValue}
-        style={{
-          width: `${percentage}%`,
-        }}
       >
         <div
           className="h-full transition-all duration-300 ease-in-out"
