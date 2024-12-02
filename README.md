@@ -8,27 +8,28 @@ This is a interactive Tamagotchi-inspired web application built with React and N
 - Usage
 - Features
 - Technologies
-- Credit 
-
+- Credit
 
 ## Installation
 
 To get started with the Tamagotchi web application, follow the steps below:
 
 Prerequisites
+
 - Node.js (version 14 or higher)
 - npm or yarn (package manager)
 
 Steps
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/...
    cd tamagotchi-web-app
    ```
 
 2. Install dependencies:
-   
+
    If you're using npm:
 
    ```bash
@@ -41,7 +42,7 @@ Steps
    yarn install
    ```
 
-4. Run the development server:
+3. Run the development server:
 
    If you're using npm:
 
@@ -55,9 +56,10 @@ Steps
    yarn dev
    ```
 
-5. Open your browser and visit `http://localhost:3000` to see the app in action!
+4. Open your browser and visit `http://localhost:3000` to see the app in action!
 
 ## Usage
+
 Start the game: When the app loads, create account with your username then click on the login with that name.
 Create a pet: name your pet, then choose a pet icon gif to assign to your pet.
 Interact with your pet: use the buttons to feed, play with, and take care of your Tamagotchi. More interactions leads to your pet increasing its growth stage.
@@ -65,6 +67,7 @@ Monitor pet health: The pet will display various stats such as hunger, happiness
 Pet status: The app will notify you when your pet needs attention.
 
 ## Features
+
 Feed your pet: Click a button to feed your virtual pet, increasing its hunger meter.
 Play with your pet: Interact with your pet by playing games to keep it happy.
 Put your pet to sleep: increase your pets energy by putting it to sleep
@@ -83,3 +86,9 @@ This application is built with the following technologies:
 ## Credit
 
 This project is licensed under Northwestern created by Mia Cheng, Shreya Sridhar, AnnaRose Jones, Iris Ely
+
+## Citations
+
+Utilized Chatgpt as a reference for optimal Aria labels
+
+- prompt used: "what aria roles/properties would be the best to use to make this component more accessible"
