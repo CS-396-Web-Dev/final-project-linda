@@ -39,14 +39,6 @@ const PetIcon = ({ petGif, petAlt, userId, petName }) => {
           className="w-36 h-36 rounded-md object-contain"
         />
       </div>
-
-      <h2
-        id={`${petName}-title`}
-        className="text-lg font-semibold text-center mt-4"
-      >
-        {petName}
-      </h2>
-
       <div className="mt-4 flex justify-center space-x-4">
         <button
           className="w-12 h-12 rounded-full bg-periwinkle text-white flex items-center justify-center hover:bg-hoverperiwinkle focus:outline-none focus:ring-2 focus:ring-lightblue"
