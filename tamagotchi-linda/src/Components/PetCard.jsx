@@ -12,7 +12,8 @@ const PetCard = ({ pet, userid, img, onClick }) => {
   };
 
   const handleDeletePet = (e) => {
-    e.stopPropagation();
+
+    e.stopPropagation(); 
     deletePet(pet, userid);
   };
 
@@ -27,6 +28,7 @@ const PetCard = ({ pet, userid, img, onClick }) => {
       <button
         className="delete-button absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 z-10"
         onClick={handleDeletePet}
+
         aria-label={`Delete ${pet}`}
       >
         Delete
@@ -42,6 +44,7 @@ const PetCard = ({ pet, userid, img, onClick }) => {
         alt={`A visual representation of ${pet}`}
         aria-labelledby={`${pet}-title`}
       />
+
     </div>
   );
 };

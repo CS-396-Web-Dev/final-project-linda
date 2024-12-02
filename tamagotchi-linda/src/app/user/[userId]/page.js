@@ -1,5 +1,6 @@
 "use client";
-import { React, useState, useEffect } from "react";
+
+import {React, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PetCard from "@/Components/PetCard";
 import { usePetContext } from "../../context/PetContext";
@@ -72,6 +73,7 @@ export default function UserPage({ params: paramsPromise }) {
     setNewPetIcon("");
   };
 
+
   const handlePetCardClick = (petId) => {
     router.push(`/user/${params.userId}/pet/${petId}`);
   };
@@ -128,6 +130,7 @@ export default function UserPage({ params: paramsPromise }) {
             <h2 id="add-pet-heading" className="sr-only">
               Add a New Pet
             </h2>
+
             <div>
               <label
                 htmlFor="petName"
@@ -143,6 +146,7 @@ export default function UserPage({ params: paramsPromise }) {
                 aria-required="true"
                 aria-invalid={!!nameError}
                 aria-describedby={nameError ? "pet-name-error" : undefined}
+
                 className={`mt-1 block w-full text-darkblue rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
                   nameError ? "border-red-500" : "border-gray-300"
                 }`}
@@ -231,6 +235,7 @@ export default function UserPage({ params: paramsPromise }) {
               />
             ) : null;
           })}
+
         </div>
 
         {pets.length === 0 && (

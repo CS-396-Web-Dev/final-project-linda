@@ -67,6 +67,7 @@ export default function PetPage({ params: paramsPromise }) {
       <div className="p-4">
         <button
           className="h-100 w-200 bg-darkblue text-white hover:scale-110 cursor-pointer px-4 rounded"
+
           onClick={() => router.push(`/user/${userId}`)}
           aria-label={`Go back to ${userId}'s user page`}
         >
@@ -86,6 +87,7 @@ export default function PetPage({ params: paramsPromise }) {
         >
           {pet.name}
         </h1>
+
         <PetIcon
           petGif={`/gifs/${pet.img}`}
           petAlt={`Icon for pet ${pet.name}`}
