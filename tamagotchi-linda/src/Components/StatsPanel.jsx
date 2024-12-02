@@ -19,7 +19,7 @@ const StatsPanel = ({ userId, petName }) => {
   useEffect(() => {
     const currentPetData = userFiles[userId]?.[petName] || initialPet;
     setPet(currentPetData);
-  }, [userFiles, userId, petName]);
+  }, [userFiles, userId, petName, initialPet]);
 
   useEffect(() => {
     const decreaseInterval = setInterval(() => {
