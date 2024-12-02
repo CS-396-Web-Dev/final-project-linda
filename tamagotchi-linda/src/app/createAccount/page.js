@@ -18,6 +18,7 @@ export default function CreateAccount() {
     if (!/^[a-zA-Z]+$/.test(name)) {
       return "Username can only contain letters.";
     }
+
     if (Object.values(idToName).map((u) => u.toLowerCase()).includes(lowercasedName)) {
       return "A user with this name already exists. Please choose a different name.";
     }
@@ -44,9 +45,22 @@ export default function CreateAccount() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl text-darkblue font-bold mb-6 text-center">Create Account</h1>
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gray-100"
+      role="main"
+    >
+      <div
+        className="bg-white p-8 rounded-lg shadow-md w-96"
+        role="form"
+        aria-labelledby="create-account-header"
+      >
+        <h1
+          id="create-account-header"
+          className="text-2xl text-darkblue font-bold mb-6 text-center"
+        >
+          Create Account
+        </h1>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <label
             htmlFor="username"
@@ -59,18 +73,30 @@ export default function CreateAccount() {
             id="username"
             value={username}
             onChange={handleUsernameChange}
+            aria-required="true"
+            aria-invalid={!!nameError}
+            aria-describedby={nameError ? "username-error" : undefined}
             className={`mt-1 block w-full text-darkblue rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
               nameError ? "border-red-500" : "border-gray-300"
             }`}
             required
-          />          
+          />
           {nameError && (
-              <p className="mt-1 text-sm text-red-600">{nameError}</p>
-            )}
+            <p
+              id="username-error"
+              className="mt-1 text-sm text-red-600"
+              role="alert"
+            >
+              {nameError}
+            </p>
+          )}
+
           <button
             type="submit"
             className="w-full bg-darkblue text-white rounded-md py-2 px-2 hover:scale-110"
             disabled={!!nameError || !username}
+            aria-disabled={!!nameError || !username}
+
           >
             Done
           </button>

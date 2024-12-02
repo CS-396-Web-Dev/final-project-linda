@@ -1,11 +1,6 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import StatsPanel from "../components/StatsPanel"; // Adjust the path as needed
-import Image from "next/image";
-import PetIcon from "@/Components/PetIcon";
-import PetCard from "@/Components/PetCard";
 import { usePetContext } from "./context/PetContext";
 
 export default function Home() {
@@ -21,34 +16,42 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-center mb-6 text-darkblue">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gray-100"
+      role="main"
+    >
+      <h1
+        className="text-4xl font-bold text-center mb-6 text-darkblue"
+        role="heading"
+        aria-level="1"
+      >
         Welcome to Our Site
       </h1>
-      <div className="space-x-4">
+      <div className="space-x-4" role="group" aria-label="User actions">
         <button
           className="px-6 py-2 bg-periwinkle text-white rounded hover:scale-110"
           onClick={handleCreateAccountClick}
+          aria-label="Create a new user account"
         >
           Create User
         </button>
         <button
-          className="px-6 py-2 bg-lightblue text-white rounded hover:hover:scale-110"
+          className="px-6 py-2 bg-lightblue text-white rounded hover:scale-110"
           onClick={handleLoginClick}
+          aria-label="Log in to your account"
         >
           Login
         </button>
       </div>
 
-      {/* <PetIcon /> */}
+      {/* <PetIcon aria-label="Pet icon" /> */}
 
       {/* Test panel component */}
       {/* <div className="w-full max-w-md">
         <StatsPanel />
       </div> */}
 
-      {/* <PetCard/> */}
+      {/* <PetCard aria-label="Pet card details" /> */}
     </div>
   );
-  600;
 }
