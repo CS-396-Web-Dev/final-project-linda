@@ -58,10 +58,10 @@ Steps
 5. Open your browser and visit `http://localhost:3000` to see the app in action!
 
 ## Usage
-Start the game: When the app loads, create account with your username then click on the login with that name
-Create a pet: name your pet and click on the pet icon gif you would like associated
-Interact with your pet: Use the buttons to feed, play, and take care of your Tamagotchi.
-Monitor pet health: The pet will display various stats such as hunger, happiness, and energy levels. 
+Start the game: When the app loads, create account with your username then click on the login with that name.
+Create a pet: name your pet, then choose a pet icon gif to assign to your pet.
+Interact with your pet: use the buttons to feed, play with, and take care of your Tamagotchi. More interactions leads to your pet increasing its growth stage.
+Monitor pet health: The pet will display various stats such as hunger, happiness, and energy levels.
 Pet status: The app will notify you when your pet needs attention.
 
 ## Features
@@ -79,7 +79,6 @@ This application is built with the following technologies:
 - Next.js: Framework for React to handle server-side rendering and routing.
 - Tailwindcss: For scoped CSS styling.
 - React Hooks: Used for state and side-effect management.
-
 
 ## Credit
 
